@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-web3-auth",
+  "version": "1.0.0",
+  "description": "A demo which uses nuxt and web3/metamask to sign in users and protect routes.",
+  "author": "Tobias Thiele",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "bootstrap": "^4.3.1",
+    "cookieparser": "^0.1.0",
+    "cross-env": "^5.2.0",
+    "ethereumjs-util": "^6.1.0",
+    "express": "^4.16.4",
+    "js-cookie": "^2.2.0",
+    "nuxt": "^2.4.0",
+    "web3": "^1.0.0-beta.48",
+    "web3-utils": "^1.0.0-beta.48"
+  },
+  "devDependencies": {
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^7.1.0"
+  }
+}
