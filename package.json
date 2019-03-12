@@ -5,9 +5,9 @@
   "author": "Tobias Thiele",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "concurrently --kill-others \"nuxt\" \"cd api && npm run dev\"",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "concurrently --kill-others \"nuxt start\" \"cd api && npm run start\"",
     "generate": "nuxt generate"
   },
   "dependencies": {
@@ -18,6 +18,7 @@
     "web3": "^1.0.0-beta.48"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
     "sass-loader": "^7.1.0"

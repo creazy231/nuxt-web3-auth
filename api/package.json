@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --exec \"ncc run\" index.js"
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"ncc run\" index.js",
+    "start": "cross-env NODE_ENV=production ncc run index.js"
   },
   "author": "",
   "license": "ISC",
