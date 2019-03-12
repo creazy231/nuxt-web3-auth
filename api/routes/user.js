@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { isAddress } from 'web3-utils';
+const ethUtil = require('ethereumjs-util');
 
 function rnd(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -23,13 +23,35 @@ router.get("/nonce/:address", (req, res) => {
     }
 });
 
-router.get("/verify", (req, res) => {
-    const signature = req.headers;
-    console.log(signature);
-    res.json({
-        success: true,
-        headers: signature
-    });
+function verifySignature(nonce, reqAddress, reqSignature) {
+    const msg = `Sign Nonce: ${nonce}`;
+    const msgBuffer = ethUtil.toBuffer(msg);
+    const msgHash = ethUtil.hashPersonalMessage(msgBuffer);
+    const signatureBuffer = ethUtil.toBuffer(reqSignature);
+    const signatureParams = ethUtil.fromRpcSig(signatureBuffer);
+
+    const publicKey = ethUtil.ecrecover(
+        msgHash,
+        signatureParams.v,
+        signatureParams.r,
+        signatureParams.s
+    );
+
+    const addressBuffer = ethUtil.publicToAddress(publicKey);
+    const address = ethUtil.bufferToHex(addressBuffer);
+
+    return address.toLowerCase() === reqAddress.toLowerCase();
+}
+
+router.get("/top-secret-content", (req, res) => {
+    if (!req.cookies.auth) res.json({success: false});
+    const auth = JSON.parse(req.cookies.auth);
+    const isVerified = verifySignature(auth.nonce, auth.address, auth.signature);
+    if (isVerified) {
+        res.json({success: true, data: "THIS IS SUPER SECRET!"});
+    } else {
+        res.json({success: false});
+    }
 });
 
 export default router;
