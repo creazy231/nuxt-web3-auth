@@ -15,7 +15,7 @@
     const Cookie = process.client ? require('js-cookie') : undefined;
 
     export default {
-        mounted() {
+        async mounted() {
             window.$state = this.$store.state;
         },
 

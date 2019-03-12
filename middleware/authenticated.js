@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export default async function ({route, store, redirect, $axios}) {
 
     const noAuth = route.fullPath === '/login';
@@ -9,14 +7,11 @@ export default async function ({route, store, redirect, $axios}) {
     if (!store.state.account.signature || !store.state.account.address) {
         return redirect('/login');
     } else {
-        const success = await $axios.$get('/api/v1/user/verify', {
-            headers: {
-                'signature': store.state.account.signature,
-                'address': store.state.account.address
-            }
-        });
+        const ret = await $axios.$get('/api/v1/user/top-secret-content');
 
-        if (!success.success) {
+        if (ret.success) {
+            store.state.data = ret.data;
+        } else {
             return redirect('/login');
         }
     }

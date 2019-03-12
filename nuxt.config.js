@@ -1,10 +1,7 @@
-const pkg = require('./package')
-
+const pkg = require('./package');
 
 module.exports = {
     mode: 'universal',
-
-    serverMiddleware: ['~/api/index.js'],
 
     /*
     ** Headers of the page
@@ -50,6 +47,14 @@ module.exports = {
     */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
+        proxy: true,
+    },
+
+    proxy: {
+        "/api/v1": {
+            target: "http://localhost:3001/api/v1",
+            pathRewrite: { "^/api/v1": "" },
+        }
     },
 
     /*
