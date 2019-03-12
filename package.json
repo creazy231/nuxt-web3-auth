@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently --kill-others \"nuxt\" \"cd api && npm run dev\"",
     "build": "nuxt build",
-    "start": "concurrently --kill-others \"nuxt start\" \"cd api && npm run start\"",
+    "start": "nuxt build && concurrently --kill-others \"nuxt start\" \"cd api && npm run start\"",
     "generate": "nuxt generate"
   },
   "dependencies": {
